@@ -2,6 +2,10 @@
 
 An MCP server that generates comprehensive Learning Hour content for Technical Coaches, enabling teams to practice technical excellence through structured deliberate practice sessions. Works seamlessly with the Miro MCP for creating interactive boards.
 
+<a href="https://glama.ai/mcp/servers/@SDiamante13/learning-hour-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@SDiamante13/learning-hour-mcp/badge" alt="Learning Hour MCP server" />
+</a>
+
 ## Philosophy
 
 Learning Hours are structured practice sessions where software teams develop technical excellence skills through deliberate practice. Just as athletes and pilots dedicate time to practice their craft, software developers need dedicated time to master fundamental programming practices that stand the test of time.

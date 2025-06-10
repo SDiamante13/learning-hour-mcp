@@ -56,6 +56,16 @@ Generates a Miro OAuth authorization URL for obtaining access tokens.
 }
 ```
 
+### `test_miro_token`
+Tests if a Miro access token is valid and working.
+
+**Input:**
+```json
+{
+  "accessToken": "your_miro_access_token"
+}
+```
+
 ### `create_miro_board`
 Creates a Miro board with Learning Hour content automatically laid out.
 
@@ -121,14 +131,38 @@ npm run test:integration
 
 ## Miro Integration Workflow
 
-### Option 1: Direct Integration (Recommended)
+### Getting a Miro Access Token
 
-1. **Get Miro Authorization URL**:
+To use Miro integration, you need a valid access token. Here are two ways:
+
+#### Option A: Quick Personal Access Token (Easiest)
+1. Go to [Miro Developer Portal](https://developers.miro.com/reference/oauth-2.0)
+2. Create a developer account
+3. Create a new app
+4. Generate a personal access token
+5. Test it: `test_miro_token {"accessToken": "your_token"}`
+
+#### Option B: OAuth Flow (For Production)
+1. **Get Authorization URL**:
 ```json
 {
   "tool": "get_miro_auth_url",
   "arguments": {
     "redirectUri": "http://localhost:3000/callback"
+  }
+}
+```
+
+2. Visit the URL, authorize, and exchange the code for a token
+
+### Using Miro Integration
+
+1. **Test Your Token**:
+```json
+{
+  "tool": "test_miro_token",
+  "arguments": {
+    "accessToken": "your_miro_access_token"
   }
 }
 ```

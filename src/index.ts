@@ -126,6 +126,20 @@ class LearningHourMCP {
             required: ["redirectUri"],
           },
         },
+        {
+          name: "test_miro_token",
+          description: "Test if a Miro access token is valid",
+          inputSchema: {
+            type: "object",
+            properties: {
+              accessToken: {
+                type: "string",
+                description: "Miro access token to test",
+              },
+            },
+            required: ["accessToken"],
+          },
+        },
       ],
     }));
 
@@ -140,6 +154,8 @@ class LearningHourMCP {
             return await this.createMiroBoard(request.params.arguments);
           case "get_miro_auth_url":
             return await this.getMiroAuthUrl(request.params.arguments);
+          case "test_miro_token":
+            return await this.testMiroToken(request.params.arguments);
           default:
             throw new McpError(
               ErrorCode.MethodNotFound,
@@ -272,6 +288,44 @@ class LearningHourMCP {
       };
     } catch (error) {
       throw new Error(`Failed to generate Miro auth URL: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  private async testMiroToken(args: any) {
+    const { accessToken } = args;
+    
+    try {
+      const miro = new MiroIntegration(accessToken);
+      const isValid = await miro.validateToken();
+      
+      if (isValid) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `✅ Miro access token is valid and working`,
+            },
+          ],
+        };
+      } else {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `❌ Miro access token is invalid or expired`,
+            },
+          ],
+        };
+      }
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: `❌ Error testing Miro token: ${error instanceof Error ? error.message : String(error)}`,
+          },
+        ],
+      };
     }
   }
 

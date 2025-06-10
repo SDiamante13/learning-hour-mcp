@@ -123,6 +123,7 @@ export class MiroIntegration {
   async createStickyNote(boardId: string, content: string, x: number, y: number, color: string = 'light_yellow'): Promise<MiroStickyNote> {
     try {
       const response = await axios.post(`${this.miroApiUrl}/boards/${boardId}/items`, {
+        type: 'sticky_note',
         data: {
           content: content,
           shape: 'square'
@@ -150,9 +151,9 @@ export class MiroIntegration {
   async createTextFrame(boardId: string, content: string, x: number, y: number, width: number = 400, height: number = 200): Promise<MiroTextFrame> {
     try {
       const response = await axios.post(`${this.miroApiUrl}/boards/${boardId}/items`, {
+        type: 'text',
         data: {
-          content: content,
-          format: 'html'
+          content: content
         },
         style: {
           fillColor: 'transparent',
